@@ -6,24 +6,79 @@
 /*   By: seonjo <seonjo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:02:49 by seonjo            #+#    #+#             */
-/*   Updated: 2023/04/10 21:59:12 by seonjo           ###   ########.fr       */
+/*   Updated: 2023/06/27 15:15:39 by seonjo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*free_str(char *str)
+void	*all_free(t_list **head)
 {
-	free(str);
+	t_list	*node;
+	t_list	*tmp;
+
+	node = *head;
+	while (node != NULL)
+	{
+		tmp = node -> next;
+		free(node);
+		node = tmp;
+	}
 	return (NULL);
 }
 
-size_t	ft_strlen(char *str)
+void	*remove_node(t_list **head, int fd)
 {
-	size_t	len;
+	t_list	*pre;
+	t_list	*now;
 
-	len = 0;
-	while (str[len] != '\0')
-		len = len + 1;
-	return (len);
+	now = *head;
+	if (now -> fd == fd)
+	{
+		*head = now -> next;
+		free(now);
+		return (NULL);
+	}
+	while (now -> fd != fd)
+	{
+		pre = now;
+		now = pre -> next;
+	}
+	pre -> next = now -> next;
+	free(now);
+	return (NULL);
+}
+
+void	*free_dest(char *dest)
+{
+	free(dest);
+	return (NULL);
+}
+
+t_list	*find_node(t_list **head, int fd)
+{
+	t_list	*node;
+	t_list	*pre_node;
+
+	node = *head;
+	pre_node = NULL;
+	while (node != NULL && node -> fd != fd)
+	{
+		pre_node = node;
+		node = pre_node -> next;
+	}
+	if (node == NULL)
+	{
+		node = (t_list *)malloc(sizeof(t_list));
+		if (node == NULL)
+			return (NULL);
+		node -> fd = fd;
+		(node -> buffer)[0] = '\0';
+		node -> next = NULL;
+		if (pre_node == NULL)
+			*head = node;
+		else
+			pre_node -> next = node;
+	}
+	return (node);
 }
