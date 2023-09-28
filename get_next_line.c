@@ -6,7 +6,7 @@
 /*   By: seonjo <seonjo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 18:02:39 by seonjo            #+#    #+#             */
-/*   Updated: 2023/06/27 15:26:23 by seonjo           ###   ########.fr       */
+/*   Updated: 2023/09/13 17:28:50 by seonjo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ char	*make_dest(char *buffer, int fd, size_t dest_size)
 		read_num = read(fd, buffer, BUFFER_SIZE);
 		if (read_num == -1)
 			return (free_dest(dest));
-		buffer[read_num] = '\0';
 		if (read_num == 0)
 			break ;
+		buffer[read_num] = '\0';
 		dest = ft_strnstr(dest, buffer, get_size(buffer), &dest_size);
 		if (dest == NULL)
 			return (NULL);
@@ -98,21 +98,22 @@ char	*make_dest(char *buffer, int fd, size_t dest_size)
 	return (dest);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *flag)
 {
-	static t_list	*head;
-	t_list			*node;
+	static t_list2	*head;
+	t_list2			*node;
 	char			*dest;
 
 	if (fd < 0)
-		return (NULL);
+		return (flag_set(flag));
 	node = find_node(&head, fd);
 	if (node == NULL)
-		return (all_free(&head));
+		return (all_free(&head, flag));
 	dest = make_dest(node -> buffer, fd, 0);
 	if (dest == NULL)
 	{
 		(node -> buffer)[0] = '\0';
+		flag_set(flag);
 		return (remove_node(&head, fd));
 	}
 	if (dest[0] == '\0')
