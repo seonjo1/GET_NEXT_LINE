@@ -40,4 +40,6 @@ char*  ft_gnl(int fd);
   - ft_gnl의 인자로 받은 fd 에 대한 구조체를 생성한다.
   - 다 읽어서 buffer 가 비어있는 구조체는 삭제한다.
 
-## 
+---
+
+<img width="221" alt="스크린샷 2024-06-23 오후 10 30 20" src="https://github.com/seonjo1/GET_NEXT_LINE/assets/127729846/4d3eab81-a3b5-4cdf-9016-9827b82341f6">
