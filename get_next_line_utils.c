@@ -12,10 +12,10 @@
 
 #include "get_next_line.h"
 
-void	*all_free(t_list2 **head, int *flag)
+void	*all_free(t_list **head, int *flag)
 {
-	t_list2	*node;
-	t_list2	*tmp;
+	t_list	*node;
+	t_list	*tmp;
 
 	*flag = 1;
 	node = *head;
@@ -28,10 +28,10 @@ void	*all_free(t_list2 **head, int *flag)
 	return (NULL);
 }
 
-void	*remove_node(t_list2 **head, int fd)
+void	*remove_node(t_list **head, int fd)
 {
-	t_list2	*pre;
-	t_list2	*now;
+	t_list	*pre;
+	t_list	*now;
 
 	now = *head;
 	if (now -> fd == fd)
@@ -56,10 +56,10 @@ void	*free_dest(char *dest)
 	return (NULL);
 }
 
-t_list2	*find_node(t_list2 **head, int fd)
+t_list	*find_node(t_list **head, int fd)
 {
-	t_list2	*node;
-	t_list2	*pre_node;
+	t_list	*node;
+	t_list	*pre_node;
 
 	node = *head;
 	pre_node = NULL;
@@ -70,7 +70,7 @@ t_list2	*find_node(t_list2 **head, int fd)
 	}
 	if (node == NULL)
 	{
-		node = (t_list2 *)malloc(sizeof(t_list2));
+		node = (t_list *)malloc(sizeof(t_list));
 		if (node == NULL)
 			return (NULL);
 		node -> fd = fd;

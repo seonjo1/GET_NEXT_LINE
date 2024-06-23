@@ -100,8 +100,8 @@ char	*make_dest(char *buffer, int fd, size_t dest_size)
 
 char	*get_next_line(int fd, int *flag)
 {
-	static t_list2	*head;
-	t_list2			*node;
+	static t_list	*head;
+	t_list			*node;
 	char			*dest;
 
 	if (fd < 0)

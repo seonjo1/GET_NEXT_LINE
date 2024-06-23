@@ -20,19 +20,19 @@
 #  define BUFFER_SIZE 1000000
 # endif
 
-typedef struct s_list2
+typedef struct s_list
 {
 	int				fd;
 	char			buffer[BUFFER_SIZE + 1];
-	struct s_list2	*next;
-}t_list2;
+	struct s_list	*next;
+}t_list;
 
 char	*ft_gnl(int fd);
 char	*get_next_line(int fd, int *flag);
-void	*all_free(t_list2 **head, int *flag);
+void	*all_free(t_list **head, int *flag);
 void	*free_dest(char *dest);
 void	*flag_set(int *flag);
-void	*remove_node(t_list2 **head, int fd);
-t_list2	*find_node(t_list2 **head, int fd);
+void	*remove_node(t_list **head, int fd);
+t_list	*find_node(t_list **head, int fd);
 
 #endif
